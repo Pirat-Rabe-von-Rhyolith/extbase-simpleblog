@@ -1,0 +1,88 @@
+
+plugin.tx_simpleblog_bloglisting {
+    view {
+        templateRootPaths.0 = EXT:simpleblog/Resources/Private/Templates/
+        partialRootPaths.0 = {$plugin.tx_simpleblog_bloglisting.view.partialRootPath}
+        layoutRootPaths.0 = fileadmin/Layouts/
+    }
+    persistence {
+        storagePid=0,3,5,6,7
+        #storagePid = 8
+        recursive = 1
+        classes {
+            Lobacher\Simpleblog\Domain\Model\Blog {
+            newRecordStoragePid=3
+            }
+            Lobacher\Simpleblog\Domain\Model\Post {
+            newRecordStoragePid=5
+            }
+            Lobacher\Simpleblog\Domain\Model\Comment {
+            newRecordStoragePid=6
+            }
+            Lobacher\Simpleblog\Domain\Model\Tag {
+            newRecordStoragePid=7
+            }
+        }
+    }
+    settings {
+        blog{
+        max=10
+        }
+    }
+    features {
+        #skipDefaultArguments = 1
+        # if set to 1, the enable fields are ignored in BE context
+        ignoreAllEnableFieldsInBe = 0
+        # Should be on by default, but can be disabled if all action in the plugin are uncached
+        requireCHashArgumentForActionArguments = 1
+    }
+    mvc {
+        callDefaultActionIfActionCantBeResolved = 1
+    }
+}
+
+
+# these classes are only used in auto-generated templates
+plugin.tx_simpleblog._CSS_DEFAULT_STYLE (
+    textarea.f3-form-error {
+        background-color:#FF9F9F;
+        border: 1px #FF0000 solid;
+    }
+
+    input.f3-form-error {
+        background-color:#FF9F9F;
+        border: 1px #FF0000 solid;
+    }
+
+    .tx-simpleblog table {
+        border-collapse:separate;
+        border-spacing:10px;
+    }
+
+    .tx-simpleblog table th {
+        font-weight:bold;
+    }
+
+    .tx-simpleblog table td {
+        vertical-align:top;
+    }
+
+    .typo3-messages .message-error {
+        color:red;
+    }
+
+    .typo3-messages .message-ok {
+        color:green;
+    }
+)
+
+page{
+  includeCSS {
+    bootstrap=EXT:simpleblog/Resources/Public/Bootstrap/css/bootstrap.min.css
+    simpleblog=EXT:simpleblog/Resources/Public/Css/simpleblog.css
+  }
+  includeJSlibs {
+    jquery=//code.jquery.com/jquery.js jquery.external=1
+    bootstrap=EXT:simpleblog/Resources/Public/Bootstrap/js/bootstrap.min.js
+  }
+}
