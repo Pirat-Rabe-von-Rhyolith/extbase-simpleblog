@@ -1,0 +1,19 @@
+{namespace lb=Lobacher\Simpleblog\ViewHelpers}
+<h1>{headline}</h1>
+<f:render partial="Error" arguments="{object:'blog'}"/>
+<f:form action="{action}" object="{blog}" name="blog"
+        additionalAttributes="{role:'form'}">
+
+    <div class="form-group">
+        <label {lb:hasError(property:'title',then:'class="text-danger"')}>Blog-Titel</label>
+        <f:form.textfield property="title" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label {lb:hasError(property:'description',then:'class="text-danger"')}>Blog-Beschreibung</label>
+        <f:form.textarea property="description" class="form-control" />
+    </div>
+
+
+    <f:form.submit value="{submitmessage}" class="btn btn-primary" />
+</f:form>

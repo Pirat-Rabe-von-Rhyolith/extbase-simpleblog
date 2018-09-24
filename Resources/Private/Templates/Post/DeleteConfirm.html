@@ -1,0 +1,13 @@
+<f:layout name="Default" />
+<f:section name="content">
+
+    <h1>Post löschen?</h1>
+
+    Wollen Sie den Post mit dem Titel <strong>{post.title}</strong> (zugehörig zum Blog "{blog.title}") wirklich löschen?
+
+    <br/><br/>
+
+    <f:link.action action="show" controller="Blog" arguments="{blog:blog}" class="btn btn-danger">Nein</f:link.action>
+    <f:link.action action="delete" class="btn btn-success" arguments="{blog:blog, post:post}">Ja</f:link.action>
+
+</f:section>

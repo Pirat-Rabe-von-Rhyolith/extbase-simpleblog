@@ -1,0 +1,5 @@
+{namespace lb=Lobacher\Simpleblog\ViewHelpers}
+<f:form.validationResults for="blog">
+    <f:if condition="{lb:property(subject:'{validationResults.flattenedErrors}',propertyName:'{property}')}">{message}</f:if>
+
+</f:form.validationResults>

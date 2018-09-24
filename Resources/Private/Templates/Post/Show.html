@@ -1,0 +1,67 @@
+<f:layout name="Default" />
+<f:section name="content">
+
+    <h1>Post ansehen(Blog:{blog.title})</h1>
+
+    <dl class="dl-horizontal">
+        <dt>Post-Titel</dt>
+        <dd>{post.title}</dd>
+        <dt>Post-Datum</dt>
+        <dd><f:format.date format="d.m.Y/h:i a">{post.postdate}</f:format.date></dd>
+        <dt>Post-Inhalt:</dt>
+        <dd>{post.content}</dd>
+        <dt>Post-Tags</dt>
+        <dd><f:for each="{post.tags}" as="tag">
+            <span class="label label-default">{tag.tagvalue}</span>
+        </f:for></dd>
+        <dt>Post-Ersteller:</dt>
+        <dd>{post.author.fullname}(Email:{post.author.email})</dd>
+    </dl>
+
+    <h3>Comments</h3>
+    <f:form action="ajax" name="comment" object="{comment}" arguments="{post:post}">
+        <f:form.textarea property="comment" id="commentfield"/>
+        <br />
+        <f:form.submit value="Send comment" class="btn btn-primary btn-xs" id="commentsubmit"/>
+    </f:form>
+
+    <ul class="list-group" id="comments">
+        <f:for each="{post.comments}" as="comment" reverse="TRUE">
+            <li class="list-group-item">{comment.comment}<span class="text-muted"><br />(<f:format.date format="Y-m-d H:i:s">{comment.commentdate}</f:format.date>)</span></li>
+        </f:for>
+    </ul>
+
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $('#commentsubmit').click(function(){
+                var ajaxURL = '<f:format.raw><f:uri.action action="ajax" controller="Post" pageType="99" arguments="{post:post}" /></f:format.raw>';
+                var form=$('form');
+                $.post(ajaxURL, form.serialize(), function(response){
+
+                    var json_obj = $.parseJSON(response);
+                    var items=[];
+                     $.each(json_obj, function(key,val){
+
+                         var listItem = '<li class="list-group-item">'+val.comment;
+                         if(val.commentdate != null) {
+                             listItem += '<span class="text-muted"><br />('+val.commentdate+')</span>';
+                         }
+                         listItem += '</li>';
+
+                       items.push(listItem);
+                    });
+
+                    $('#comments').html(items.reverse().join(''));
+                    $('#commentfield').val('');
+                });
+                return false;
+
+            });
+        });
+    </script>
+
+
+    <f:link.action action="show" controller="Blog" arguments="{blog:blog}" class="btn btn-primary">Zurück zum
+        Blog <strong>"{blog.title}"</strong></f:link.action>
+
+</f:section>

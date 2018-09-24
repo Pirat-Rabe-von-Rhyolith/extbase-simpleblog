@@ -1,0 +1,13 @@
+<f:layout name="Default" />
+<f:section name="content">
+
+<h1>Blog löschen?</h1>
+
+Wollen Sie den Blog mit dem Titel <strong>{blog.title}</strong> wirklich löschen?
+
+<br/><br/>
+
+<f:link.action action="list" class="btn btn-danger">Nein</f:link.action>
+<f:link.action action="delete" class="btn btn-success" arguments="{blog:blog}">Ja</f:link.action>
+
+</f:section>
