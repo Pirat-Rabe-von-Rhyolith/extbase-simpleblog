@@ -1,0 +1,51 @@
+<?php
+defined('TYPO3_MODE') || die('Access denied.');
+
+call_user_func(
+    function()
+    {
+
+        \TYPO3\CMS\Extbase\Utility\ExtensionUtility::configurePlugin(
+            'Lobacher.Simpleblog',
+            'Bloglisting',
+            array(
+                'Blog' => 'list,addForm,add, show, updateForm, update, deleteConfirm, delete',
+                'Post' => 'addForm,add,show,updateForm,update,deleteConfirm,delete,ajax',
+                )
+            ,
+            // non-cacheable actions
+            array (
+                'Blog' => 'list,addForm,add, show, updateForm, update, deleteConfirm, delete',
+                'Post' => 'addForm,add,show,updateForm,update,deleteConfirm,delete,ajax',
+                )
+        );
+
+    // wizards
+    \TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addPageTSConfig(
+        'mod {
+            wizards.newContentElement.wizardItems.plugins {
+                elements {
+                    bloglisting {
+                        iconIdentifier = simpleblog-plugin-bloglisting
+                        title = LLL:EXT:simpleblog/Resources/Private/Language/locallang_db.xlf:tx_simpleblog_bloglisting.name
+                        description = LLL:EXT:simpleblog/Resources/Private/Language/locallang_db.xlf:tx_simpleblog_bloglisting.description
+                        tt_content_defValues {
+                            CType = list
+                            list_type = simpleblog_bloglisting
+                        }
+                    }
+                }
+                show = *
+            }
+       }'
+    );
+		$iconRegistry = \TYPO3\CMS\Core\Utility\GeneralUtility::makeInstance(\TYPO3\CMS\Core\Imaging\IconRegistry::class);
+		
+			$iconRegistry->registerIcon(
+				'simpleblog-plugin-bloglisting',
+				\TYPO3\CMS\Core\Imaging\IconProvider\SvgIconProvider::class,
+				['source' => 'EXT:simpleblog/Resources/Public/Icons/user_plugin_bloglisting.svg']
+			);
+		
+    }
+);

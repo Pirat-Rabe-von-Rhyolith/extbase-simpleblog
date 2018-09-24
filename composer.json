@@ -1,0 +1,28 @@
+{
+    "name": "lobacher/simpleblog",
+    "type": "typo3-cms-extension",
+    "description": "This is the didactical example from the book \"E&F\" by Lobacher",
+    "authors": [
+        {
+            "name": "Stefan Reiss",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "typo3/cms-core": "^8.7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Lobacher\\Simpleblog\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Lobacher\\Simpleblog\\Tests\\": "Tests"
+        }
+    },
+    "replace": {
+        "simpleblog": "self.version",
+        "typo3-ter/simpleblog": "self.version"
+    }
+}
